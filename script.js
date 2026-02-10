@@ -20,35 +20,33 @@ más te amo.
 heart.addEventListener("click", () => {
   intro.style.display = "none";
   scene.style.display = "flex";
+  music.currentTime = 0;
   music.play();
   startCounter();
   typeText();
 });
 
 function startCounter() {
-  const startDate = new Date("2018-01-01");
-
+  const start = new Date("2018-01-01");
   setInterval(() => {
     const now = new Date();
-    let diff = now - startDate;
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    diff %= 1000 * 60 * 60 * 24;
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    diff %= 1000 * 60 * 60;
-    const minutes = Math.floor(diff / (1000 * 60));
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    counter.innerText = `${days} días ${hours} horas ${minutes} minutos ${seconds} segundos`;
+    let diff = now - start;
+    const d = Math.floor(diff / 86400000);
+    diff %= 86400000;
+    const h = Math.floor(diff / 3600000);
+    diff %= 3600000;
+    const m = Math.floor(diff / 60000);
+    const s = Math.floor(diff / 1000) % 60;
+    counter.innerText = `${d} días ${h} horas ${m} minutos ${s} segundos`;
   }, 1000);
 }
 
 function typeText() {
   let i = 0;
   textBox.innerHTML = "";
-  const interval = setInterval(() => {
+  const t = setInterval(() => {
     textBox.innerHTML += message[i] === "\n" ? "<br>" : message[i];
     i++;
-    if (i >= message.length) clearInterval(interval);
+    if (i >= message.length) clearInterval(t);
   }, 40);
 }
