@@ -10,53 +10,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const startDate = new Date("2018-08-06T00:00:00");
 
-  /* ======================
-     CLICK INICIAL
-  ====================== */
+  // OCULTAR TEXTO AL INICIO
+  const paragraphs = text.querySelectorAll("p");
+  paragraphs.forEach(p => {
+    p.dataset.full = p.innerText;
+    p.innerText = "";
+  });
+
   heart.addEventListener("click", () => {
-    intro.classList.add("fade-out");
 
     // Música desde 0
     music.currentTime = 0;
     music.play().catch(() => {});
 
+    // Ocultar intro
+    intro.style.opacity = "0";
+
     setTimeout(() => {
       intro.style.display = "none";
       scene.style.display = "flex";
-      startBallAnimation();
-    }, 1200);
+
+      startBall();
+    }, 800);
   });
 
-  /* ======================
-     CORAZÓN → PELOTA
-  ====================== */
-  function startBallAnimation() {
+  /* CORAZÓN → PELOTA */
+  function startBall() {
     heart.classList.add("ball");
 
     setTimeout(() => {
-      heart.classList.add("drop");
+      heart.classList.add("fall");
     }, 300);
 
     setTimeout(() => {
-      growTree();
+      showTree();
     }, 2000);
   }
 
-  /* ======================
-     ÁRBOL CRECIENDO
-  ====================== */
-  function growTree() {
-    tree.classList.add("grow");
+  /* MOSTRAR ÁRBOL */
+  function showTree() {
+    tree.classList.add("show");
 
     setTimeout(() => {
       startCounter();
       typeText();
-    }, 3000);
+    }, 2000);
   }
 
-  /* ======================
-     CONTADOR
-  ====================== */
+  /* CONTADOR */
   function startCounter() {
     setInterval(() => {
       const now = new Date();
@@ -75,15 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1000);
   }
 
-  /* ======================
-     TEXTO LETRA POR LETRA
-  ====================== */
+  /* TEXTO LETRA POR LETRA */
   function typeText() {
-    const paragraphs = text.querySelectorAll("p");
     let pIndex = 0;
-
-    paragraphs.forEach(p => p.dataset.full = p.innerText);
-    paragraphs.forEach(p => p.innerText = "");
 
     function typeParagraph() {
       if (pIndex >= paragraphs.length) return;
@@ -98,9 +93,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (i >= content.length) {
           clearInterval(interval);
           pIndex++;
-          setTimeout(typeParagraph, 500);
+          setTimeout(typeParagraph, 700);
         }
-      }, 40);
+      }, 45);
     }
 
     typeParagraph();
