@@ -1,75 +1,54 @@
-document.addEventListener("DOMContentLoaded", () => {
+const heart = document.getElementById("heart");
+const intro = document.getElementById("intro");
+const scene = document.getElementById("scene");
+const music = document.getElementById("music");
+const textBox = document.getElementById("text");
+const counter = document.getElementById("counter");
 
-  const heart = document.getElementById("heart");
-  const intro = document.getElementById("intro");
-  const scene = document.getElementById("scene");
-  const tree = document.getElementById("tree");
-  const text = document.getElementById("text");
-  const counter = document.getElementById("counter");
-  const music = document.getElementById("music");
-  const ballContainer = document.getElementById("ball-container");
+const message = `
+Para el amor de mi vida:
 
-  const startDate = new Date("2018-08-06T00:00:00");
+Si pudiera elegir un lugar seguro,
+sería a tu lado.
 
-  const paragraphs = [...text.querySelectorAll("p")].map(p => p.innerHTML);
-  text.innerHTML = "";
+Cuanto más tiempo estoy contigo,
+más te amo.
 
-  heart.onclick = () => {
+— I Love You 💖
+`;
 
-    music.currentTime = 0;
-    music.play().catch(() => {});
-
-    const ball = document.createElement("div");
-    ball.className = "ball";
-    ballContainer.appendChild(ball);
-
-    intro.style.opacity = "0";
-    setTimeout(() => intro.style.display = "none", 600);
-
-    setTimeout(() => {
-      ball.remove();
-      scene.style.display = "flex";
-      tree.classList.add("show");
-      startCounter();
-      typeText();
-    }, 1800);
-  };
-
-  function startCounter() {
-    setInterval(() => {
-      const now = new Date();
-      let diff = Math.floor((now - startDate) / 1000);
-
-      const days = Math.floor(diff / 86400);
-      diff %= 86400;
-      const hours = Math.floor(diff / 3600);
-      diff %= 3600;
-      const minutes = Math.floor(diff / 60);
-      const seconds = diff % 60;
-
-      counter.innerHTML =
-        `${days} días ${hours} horas<br>${minutes} minutos ${seconds} segundos`;
-    }, 1000);
-  }
-
-  function typeText() {
-    let i = 0;
-    function next() {
-      if (i >= paragraphs.length) return;
-      const p = document.createElement("p");
-      text.appendChild(p);
-      let char = 0;
-      const content = paragraphs[i];
-      const interval = setInterval(() => {
-        p.innerHTML = content.slice(0, char++);
-        if (char > content.length) {
-          clearInterval(interval);
-          i++;
-          setTimeout(next, 500);
-        }
-      }, 40);
-    }
-    next();
-  }
-
+heart.addEventListener("click", () => {
+  intro.style.display = "none";
+  scene.style.display = "flex";
+  music.play();
+  startCounter();
+  typeText();
 });
+
+function startCounter() {
+  const startDate = new Date("2018-01-01");
+
+  setInterval(() => {
+    const now = new Date();
+    let diff = now - startDate;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff %= 1000 * 60 * 60 * 24;
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    diff %= 1000 * 60 * 60;
+    const minutes = Math.floor(diff / (1000 * 60));
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    counter.innerText = `${days} días ${hours} horas ${minutes} minutos ${seconds} segundos`;
+  }, 1000);
+}
+
+function typeText() {
+  let i = 0;
+  textBox.innerHTML = "";
+  const interval = setInterval(() => {
+    textBox.innerHTML += message[i] === "\n" ? "<br>" : message[i];
+    i++;
+    if (i >= message.length) clearInterval(interval);
+  }, 40);
+}
