@@ -3,49 +3,107 @@ document.addEventListener("DOMContentLoaded", () => {
   const heart = document.getElementById("heart");
   const intro = document.getElementById("intro");
   const scene = document.getElementById("scene");
-  const music = document.getElementById("music");
+  const tree = document.getElementById("tree");
+  const text = document.getElementById("text");
   const counter = document.getElementById("counter");
+  const music = document.getElementById("music");
 
-  // FECHA DE INICIO DEL AMOR 💖
   const startDate = new Date("2018-08-06T00:00:00");
 
-  function updateCounter() {
-    const now = new Date();
-    let diff = Math.floor((now - startDate) / 1000);
+  /* ======================
+     CLICK INICIAL
+  ====================== */
+  heart.addEventListener("click", () => {
+    intro.classList.add("fade-out");
 
-    const days = Math.floor(diff / 86400);
-    diff %= 86400;
-    const hours = Math.floor(diff / 3600);
-    diff %= 3600;
-    const minutes = Math.floor(diff / 60);
-    const seconds = diff % 60;
+    // Música desde 0
+    music.currentTime = 0;
+    music.play().catch(() => {});
 
-    counter.innerHTML = `
-      ${days} días ${hours} horas<br>
-      ${minutes} minutos ${seconds} segundos
-    `;
+    setTimeout(() => {
+      intro.style.display = "none";
+      scene.style.display = "flex";
+      startBallAnimation();
+    }, 1200);
+  });
+
+  /* ======================
+     CORAZÓN → PELOTA
+  ====================== */
+  function startBallAnimation() {
+    heart.classList.add("ball");
+
+    setTimeout(() => {
+      heart.classList.add("drop");
+    }, 300);
+
+    setTimeout(() => {
+      growTree();
+    }, 2000);
   }
 
-  // 🔥 EVENTO REAL DE USUARIO (OBLIGATORIO PARA AUDIO)
-  heart.addEventListener("click", async () => {
+  /* ======================
+     ÁRBOL CRECIENDO
+  ====================== */
+  function growTree() {
+    tree.classList.add("grow");
 
-    // Oculta intro
-    intro.style.display = "none";
-    scene.style.display = "flex";
+    setTimeout(() => {
+      startCounter();
+      typeText();
+    }, 3000);
+  }
 
-    // Inicia contador
-    updateCounter();
-    setInterval(updateCounter, 1000);
+  /* ======================
+     CONTADOR
+  ====================== */
+  function startCounter() {
+    setInterval(() => {
+      const now = new Date();
+      let diff = Math.floor((now - startDate) / 1000);
 
-    // Reproduce música
-    try {
-      music.currentTime = 30; // empieza en segundo 30
-      await music.play();
-      console.log("🎵 Música reproduciéndose");
-    } catch (e) {
-      alert("Toca nuevamente la pantalla para iniciar la música 💖");
-      console.error("Error audio:", e);
+      const days = Math.floor(diff / 86400);
+      diff %= 86400;
+      const hours = Math.floor(diff / 3600);
+      diff %= 3600;
+      const minutes = Math.floor(diff / 60);
+      const seconds = diff % 60;
+
+      counter.innerHTML =
+        `${days} días ${hours} horas<br>` +
+        `${minutes} minutos ${seconds} segundos`;
+    }, 1000);
+  }
+
+  /* ======================
+     TEXTO LETRA POR LETRA
+  ====================== */
+  function typeText() {
+    const paragraphs = text.querySelectorAll("p");
+    let pIndex = 0;
+
+    paragraphs.forEach(p => p.dataset.full = p.innerText);
+    paragraphs.forEach(p => p.innerText = "");
+
+    function typeParagraph() {
+      if (pIndex >= paragraphs.length) return;
+
+      const p = paragraphs[pIndex];
+      const content = p.dataset.full;
+      let i = 0;
+
+      const interval = setInterval(() => {
+        p.innerText += content[i];
+        i++;
+        if (i >= content.length) {
+          clearInterval(interval);
+          pIndex++;
+          setTimeout(typeParagraph, 500);
+        }
+      }, 40);
     }
-  });
+
+    typeParagraph();
+  }
 
 });
