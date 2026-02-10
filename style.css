@@ -1,90 +1,89 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+const intro = document.getElementById("intro");
+const heart = document.getElementById("heart");
+const scene = document.getElementById("scene");
+const tree = document.getElementById("tree");
+const text = document.getElementById("text");
+const counter = document.getElementById("counter");
+const music = document.getElementById("music");
+
+let started = false;
+
+function startExperience() {
+  if (started) return;
+  started = true;
+
+  console.log("Experiencia iniciada");
+
+  // Oculta intro y muestra escena
+  if (intro) intro.style.display = "none";
+  if (scene) scene.style.display = "block";
+
+  // Música (solo funciona tras interacción real)
+  if (music) {
+    music.currentTime = 30;
+    music.play().then(() => {
+      console.log("Música reproduciéndose");
+    }).catch(err => {
+      console.log("Audio bloqueado:", err);
+    });
+  }
+
+  // Animación árbol
+  if (tree) tree.classList.add("grow");
+
+  // Mostrar texto después
+  setTimeout(() => {
+    if (text) text.classList.add("show");
+  }, 5000);
+
+  startCounter();
+  startFloatingHearts();
 }
 
-body {
-  background: #f7ede2;
-  overflow: hidden;
+/* CLICK DIRECTO AL CORAZÓN */
+if (heart) {
+  heart.addEventListener("click", startExperience);
 }
 
-.hidden {
-  display: none;
+/* RESPALDO: cualquier toque inicia */
+document.body.addEventListener("click", startExperience, { once: true });
+
+/* ======================
+   CONTADOR
+====================== */
+function startCounter() {
+  const startDate = new Date("2018-08-06T00:00:00");
+
+  setInterval(() => {
+    const now = new Date();
+    let diff = now - startDate;
+
+    const seconds = Math.floor(diff / 1000) % 60;
+    const minutes = Math.floor(diff / (1000 * 60)) % 60;
+    const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    if (counter) {
+      counter.innerHTML = `
+        ${days} días ${hours} horas
+        ${minutes} minutos ${seconds} segundos
+      `;
+    }
+  }, 1000);
 }
 
-/* INTRO */
-#intro {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+/* ======================
+   CORAZONES FLOTANDO
+====================== */
+function startFloatingHearts() {
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "floating-heart";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = 3 + Math.random() * 3 + "s";
+    document.body.appendChild(h);
 
-#heart {
-  width: 80px;
-  height: 80px;
-  background: red;
-  transform: rotate(-45deg);
-  position: relative;
-  cursor: pointer;
-  animation: pulse 1.5s infinite;
-}
-
-#heart::before,
-#heart::after {
-  content: "";
-  width: 80px;
-  height: 80px;
-  background: red;
-  border-radius: 50%;
-  position: absolute;
-}
-
-#heart::before {
-  top: -40px;
-  left: 0;
-}
-
-#heart::after {
-  left: 40px;
-  top: 0;
-}
-
-#introText {
-  margin-top: 20px;
-  font-size: 20px;
-  color: #b00020;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1) rotate(-45deg); }
-  50% { transform: scale(1.1) rotate(-45deg); }
-  100% { transform: scale(1) rotate(-45deg); }
-}
-
-/* CANVAS */
-#canvas {
-  width: 100vw;
-  height: 100vh;
-}
-
-/* CONTENT */
-#content {
-  position: absolute;
-  top: 20%;
-  right: 5%;
-  color: #5a1a1a;
-  max-width: 40%;
-}
-
-#counter {
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-#message {
-  line-height: 1.6;
+    setTimeout(() => h.remove(), 6000);
+  }, 400);
 }
