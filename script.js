@@ -1,3 +1,5 @@
+alert("SCRIPT NUEVO CARGADO");
+
 document.addEventListener("DOMContentLoaded", () => {
 
   const heart = document.getElementById("heart");
@@ -102,3 +104,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
