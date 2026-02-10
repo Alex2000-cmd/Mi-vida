@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  console.log("SCRIPT NUEVO CARGADO");
-
   const heart = document.getElementById("heart");
   const intro = document.getElementById("intro");
   const scene = document.getElementById("scene");
@@ -9,62 +7,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const text = document.getElementById("text");
   const counter = document.getElementById("counter");
   const music = document.getElementById("music");
-  const ballContainer = document.getElementById("ball-container");
 
   const startDate = new Date("2018-08-06T00:00:00");
 
-  // Guardar textos originales
+  // Guardar texto
   const paragraphs = [...text.querySelectorAll("p")].map(p => p.innerHTML);
   text.innerHTML = "";
 
   heart.addEventListener("click", () => {
 
-    // 🎵 Música desde 0
+    // Música
     music.currentTime = 0;
     music.play().catch(() => {});
 
-    // ❤️ Convertir corazón en pelota
-    heart.style.visibility = "hidden";
-    
-    const ball = document.createElement("div");
-    ball.innerHTML = "❤️";
-    ball.className = "ball";
-    ballContainer.appendChild(ball);
+    // Convertir corazón en pelota
+    heart.classList.add("falling");
 
-    // Ocultar intro
-    intro.style.opacity = "0";
+    // Quitar texto intro
+    intro.querySelector("p").style.display = "none";
+    intro.querySelector("span").style.display = "none";
+
+    // Mostrar escena después de la caída
     setTimeout(() => {
       intro.style.display = "none";
-    }, 600);
-
-    // 🎾 Caída de la pelota
-    setTimeout(() => {
-      ball.classList.add("fall");
-    }, 200);
-
-    // 🌸 Mostrar escena
-    setTimeout(() => {
       scene.style.display = "flex";
+      tree.classList.add("grow");
     }, 2200);
 
-    // 🌳 Mostrar árbol
-    setTimeout(() => {
-      tree.classList.add("show");
-    }, 3000);
+    // Contador
+    setTimeout(startCounter, 3200);
 
-    // ⏱️ Contador
-    setTimeout(() => {
-      startCounter();
-    }, 3600);
-
-    // 💌 Texto letra por letra
-    setTimeout(() => {
-      typeText();
-    }, 4200);
-
+    // Texto
+    setTimeout(typeText, 4200);
   });
 
-  // ⏱️ CONTADOR
   function startCounter() {
     setInterval(() => {
       const now = new Date();
@@ -82,11 +58,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1000);
   }
 
-  // ✍️ TEXTO PROGRESIVO (SIN PEGARSE)
   function typeText() {
     let i = 0;
 
-    function nextParagraph() {
+    function next() {
       if (i >= paragraphs.length) return;
 
       const p = document.createElement("p");
@@ -94,22 +69,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const temp = document.createElement("div");
       temp.innerHTML = paragraphs[i];
-      const plainText = temp.textContent;
+      const plain = temp.textContent;
 
-      let char = 0;
-
+      let c = 0;
       const interval = setInterval(() => {
-        p.textContent = plainText.slice(0, char++);
-        if (char > plainText.length) {
+        p.textContent = plain.slice(0, c++);
+        if (c > plain.length) {
           clearInterval(interval);
           i++;
-          setTimeout(nextParagraph, 600);
+          setTimeout(next, 600);
         }
       }, 40);
     }
 
-    nextParagraph();
+    next();
   }
 
 });
-
