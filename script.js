@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+  console.log("SCRIPT NUEVO CARGADO");
+
   const heart = document.getElementById("heart");
   const intro = document.getElementById("intro");
   const scene = document.getElementById("scene");
@@ -11,17 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const startDate = new Date("2018-08-06T00:00:00");
 
-  // Guardar texto original como HTML (IMPORTANTE)
+  // Guardar textos originales
   const paragraphs = [...text.querySelectorAll("p")].map(p => p.innerHTML);
   text.innerHTML = "";
 
   heart.addEventListener("click", () => {
 
-    // Música
+    // 🎵 Música desde 0
     music.currentTime = 0;
     music.play().catch(() => {});
 
-    // Crear pelota (clon del corazón)
+    // ❤️ Crear pelota
     const ball = document.createElement("div");
     ball.innerHTML = "❤️";
     ball.className = "ball";
@@ -29,22 +31,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Ocultar intro
     intro.style.opacity = "0";
-    setTimeout(() => intro.style.display = "none", 600);
+    setTimeout(() => {
+      intro.style.display = "none";
+    }, 600);
 
-    // Animar caída
+    // 🎾 Caída de la pelota
     setTimeout(() => {
       ball.classList.add("fall");
     }, 200);
 
-    // Mostrar escena después
+    // 🌸 Mostrar escena
     setTimeout(() => {
       scene.style.display = "flex";
-      tree.classList.add("show");
-      startCounter();
-      typeText();
     }, 2200);
+
+    // 🌳 Mostrar árbol
+    setTimeout(() => {
+      tree.classList.add("show");
+    }, 3000);
+
+    // ⏱️ Contador
+    setTimeout(() => {
+      startCounter();
+    }, 3600);
+
+    // 💌 Texto letra por letra
+    setTimeout(() => {
+      typeText();
+    }, 4200);
+
   });
 
+  // ⏱️ CONTADOR
   function startCounter() {
     setInterval(() => {
       const now = new Date();
@@ -62,28 +80,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1000);
   }
 
+  // ✍️ TEXTO PROGRESIVO (SIN PEGARSE)
   function typeText() {
     let i = 0;
 
-    function next() {
+    function nextParagraph() {
       if (i >= paragraphs.length) return;
+
       const p = document.createElement("p");
       text.appendChild(p);
 
+      const temp = document.createElement("div");
+      temp.innerHTML = paragraphs[i];
+      const plainText = temp.textContent;
+
       let char = 0;
-      const content = paragraphs[i];
 
       const interval = setInterval(() => {
-        p.innerHTML = content.slice(0, char++);
-        if (char > content.length) {
+        p.textContent = plainText.slice(0, char++);
+        if (char > plainText.length) {
           clearInterval(interval);
           i++;
-          setTimeout(next, 500);
+          setTimeout(nextParagraph, 600);
         }
-      }, 35);
+      }, 40);
     }
 
-    next();
+    nextParagraph();
   }
 
 });
