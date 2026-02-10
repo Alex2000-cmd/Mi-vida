@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const startDate = new Date("2018-08-06T00:00:00");
 
-  // Guardar texto
   const paragraphs = [...text.querySelectorAll("p")].map(p => p.innerHTML);
   text.innerHTML = "";
 
@@ -20,25 +19,32 @@ document.addEventListener("DOMContentLoaded", () => {
     music.currentTime = 0;
     music.play().catch(() => {});
 
-    // Convertir corazón en pelota
+    // Quitar animación de pulso
+    heart.style.animation = "none";
+
+    // Caída
     heart.classList.add("falling");
 
-    // Quitar texto intro
-    intro.querySelector("p").style.display = "none";
-    intro.querySelector("span").style.display = "none";
+    // Ocultar textos intro
+    intro.querySelector("p").style.opacity = "0";
+    intro.querySelector("span").style.opacity = "0";
 
     // Mostrar escena después de la caída
     setTimeout(() => {
       intro.style.display = "none";
       scene.style.display = "flex";
-      tree.classList.add("grow");
     }, 2200);
 
+    // Árbol
+    setTimeout(() => {
+      tree.classList.add("grow");
+    }, 3000);
+
     // Contador
-    setTimeout(startCounter, 3200);
+    setTimeout(startCounter, 3800);
 
     // Texto
-    setTimeout(typeText, 4200);
+    setTimeout(typeText, 4600);
   });
 
   function startCounter() {
