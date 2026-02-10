@@ -11,38 +11,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const startDate = new Date("2018-08-06T00:00:00");
 
-  // Guardar texto
   const paragraphs = [...text.querySelectorAll("p")].map(p => p.innerHTML);
   text.innerHTML = "";
 
   heart.onclick = () => {
 
-    // Música desde 0
     music.currentTime = 0;
     music.play().catch(() => {});
 
-    // Crear pelota
     const ball = document.createElement("div");
     ball.className = "ball";
-    ball.innerHTML = "❤️";
     ballContainer.appendChild(ball);
 
-    // Ocultar intro
     intro.style.opacity = "0";
     setTimeout(() => intro.style.display = "none", 600);
 
-    // Mostrar escena DESPUÉS
     setTimeout(() => {
-  // Ocultar pelota
-  ball.style.opacity = "0";
+      ball.style.opacity = "0";
 
-  // Mostrar escena y árbol
-  scene.style.display = "flex";
-  tree.classList.add("show");
+      scene.style.display = "flex";
+      tree.classList.add("show");
 
-  startCounter();
-  typeText();
-}, 1800);
+      startCounter();
+      typeText();
+    }, 1800);
   };
 
   function startCounter() {
@@ -88,4 +80,3 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
-
