@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Para el amor de mi vida</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-  <!-- CONTENEDOR DE PELOTA -->
+  <!-- CONTENEDOR PELOTA -->
   <div id="ball-container"></div>
 
   <!-- INTRO -->
@@ -20,17 +20,39 @@
 
   <!-- ESCENA -->
   <div id="scene">
-    <div id="tree">
-      <div class="trunk"></div>
-      <div class="branch left"></div>
-      <div class="branch right"></div>
+    
+    <!-- ÁRBOL SVG -->
+    <svg id="tree" viewBox="0 0 300 400">
+      <!-- Tronco -->
+      <path d="M150 380 C145 300 155 240 150 180"
+            stroke="#7a4a1f"
+            stroke-width="12"
+            fill="none"
+            class="trunk"/>
 
-      <div class="leaf" style="top:20px; left:40px;">❤️</div>
-      <div class="leaf" style="top:10px; right:40px;">❤️</div>
-      <div class="leaf" style="top:50px; left:70px;">❤️</div>
-      <div class="leaf" style="top:40px; right:70px;">❤️</div>
-    </div>
+      <!-- Ramas -->
+      <path d="M150 250 C110 220 90 190 70 160"
+            stroke="#7a4a1f"
+            stroke-width="8"
+            fill="none"
+            class="branch"/>
+      <path d="M150 240 C190 210 220 180 240 150"
+            stroke="#7a4a1f"
+            stroke-width="8"
+            fill="none"
+            class="branch"/>
 
+      <!-- Corazones -->
+      <text x="80" y="140" class="leaf">❤️</text>
+      <text x="110" y="120" class="leaf">❤️</text>
+      <text x="140" y="110" class="leaf">❤️</text>
+      <text x="170" y="120" class="leaf">❤️</text>
+      <text x="200" y="140" class="leaf">❤️</text>
+      <text x="120" y="90" class="leaf">❤️</text>
+      <text x="160" y="90" class="leaf">❤️</text>
+    </svg>
+
+    <!-- TEXTO -->
     <div id="content">
       <div id="counter"></div>
 
