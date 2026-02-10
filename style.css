@@ -2,12 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Georgia', serif;
+  font-family: Georgia, serif;
 }
 
 body {
-  background: #000;
-  color: #fff;
+  background: black;
+  color: white;
   overflow: hidden;
 }
 
@@ -15,18 +15,16 @@ body {
 #intro {
   position: fixed;
   inset: 0;
-  background: #000;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 10;
 }
 
 #heart {
   font-size: 80px;
   cursor: pointer;
-  animation: pulse 1.5s infinite;
+  animation: pulse 1.4s infinite;
 }
 
 @keyframes pulse {
@@ -39,54 +37,46 @@ body {
 #scene {
   display: none;
   height: 100vh;
-  width: 100vw;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-/* ÁRBOL */
 #tree {
   width: 300px;
   height: 450px;
   margin-top: 20px;
 }
 
+/* RAMAS */
 .branch {
   fill: none;
-  stroke: #6b3e26;
-  stroke-width: 6;
+  stroke: #5b3a29;
   stroke-linecap: round;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: draw 3s forwards;
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: grow 3s forwards;
 }
 
-@keyframes draw {
-  to {
-    stroke-dashoffset: 0;
-  }
+.thick { stroke-width: 10; }
+.medium { stroke-width: 6; }
+.thin { stroke-width: 4; }
+
+@keyframes grow {
+  to { stroke-dashoffset: 0; }
 }
 
-/* CORAZONES */
+/* HOJAS */
 #leaves text {
-  font-size: 22px;
+  font-size: 14px;
   opacity: 0;
-  animation: pop 0.6s forwards;
+  animation: leaf 0.6s forwards;
 }
 
-#leaves text:nth-child(1) { animation-delay: 2.2s; }
-#leaves text:nth-child(2) { animation-delay: 2.4s; }
-#leaves text:nth-child(3) { animation-delay: 2.6s; }
-#leaves text:nth-child(4) { animation-delay: 2.8s; }
-#leaves text:nth-child(5) { animation-delay: 3.0s; }
-#leaves text:nth-child(6) { animation-delay: 3.2s; }
-#leaves text:nth-child(7) { animation-delay: 3.4s; }
-#leaves text:nth-child(8) { animation-delay: 3.6s; }
-#leaves text:nth-child(9) { animation-delay: 3.8s; }
-#leaves text:nth-child(10){ animation-delay: 4.0s; }
+#leaves text:nth-child(n) {
+  animation-delay: 2.5s;
+}
 
-@keyframes pop {
+@keyframes leaf {
   to {
     opacity: 1;
     transform: scale(1.2);
@@ -96,17 +86,17 @@ body {
 /* TEXTO */
 #content {
   text-align: center;
-  margin-top: 20px;
   max-width: 320px;
+  margin-top: 15px;
 }
 
 #counter {
+  font-size: 13px;
+  color: #f6a;
   margin-bottom: 10px;
-  font-size: 14px;
-  color: #f6b;
 }
 
 #text {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.6;
 }
