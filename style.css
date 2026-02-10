@@ -13,13 +13,14 @@ body {
 
 /* INTRO */
 #intro {
-  position: absolute;
+  position: fixed;
   inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  z-index: 10;
 }
 
 #heart {
@@ -28,23 +29,27 @@ body {
   animation: pulse 1.4s infinite;
 }
 
+/* Pulso */
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.15); }
   100% { transform: scale(1); }
 }
 
-/* CORAZÓN → PELOTA */
+/* ❤️ CAÍDA REAL */
 #heart.falling {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   animation: fall 2s ease-out forwards;
-  position: relative;
 }
 
 @keyframes fall {
-  0%   { transform: translateY(0); }
-  70%  { transform: translateY(320px); }
-  85%  { transform: translateY(280px); }
-  100% { transform: translateY(320px); }
+  0%   { transform: translate(-50%, -50%) scale(1); }
+  70%  { transform: translate(-50%, 120%) scale(0.9); }
+  85%  { transform: translate(-50%, 100%) scale(1.05); }
+  100% { transform: translate(-50%, 120%) scale(1); }
 }
 
 /* ESCENA */
@@ -56,18 +61,21 @@ body {
   flex-direction: column;
 }
 
-/* ÁRBOL */
+/* 🌳 ÁRBOL */
 #tree {
   width: 140px;
-  height: 0;
+  height: 200px;
   background: linear-gradient(180deg, #ffe6f0, #ffd6e8);
   border-radius: 16px;
   margin-bottom: 20px;
-  transition: height 2s ease;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 2s ease;
 }
 
 #tree.grow {
-  height: 200px;
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* CONTENIDO */
