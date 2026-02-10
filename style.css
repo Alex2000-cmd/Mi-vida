@@ -1,34 +1,46 @@
+/* ================= RESET ================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Arial", sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
 body {
   width: 100vw;
   height: 100vh;
+  background: #fff0f5;
   overflow: hidden;
-  background: #000;
-  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* INTRO */
+/* ================= INTRO ================= */
 #intro {
   position: absolute;
-  inset: 0;
-  background: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
+  text-align: center;
+  z-index: 5;
+  transition: opacity 0.6s ease;
 }
 
 #heart {
-  font-size: 80px;
+  font-size: 64px;
   cursor: pointer;
-  animation: pulse 1.5s infinite;
+  animation: pulse 1.4s infinite;
+}
+
+#intro p {
+  font-size: 22px;
+  margin-top: 10px;
+  color: #b30059;
+}
+
+#intro span {
+  display: block;
+  margin-top: 6px;
+  color: #777;
+  font-size: 14px;
 }
 
 @keyframes pulse {
@@ -37,57 +49,107 @@ body {
   100% { transform: scale(1); }
 }
 
-/* PELOTA */
+/* ================= PELOTA ================= */
+#ball-container {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 6;
+}
+
 .ball {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: #ff4d6d;
-  border-radius: 50%;
+  font-size: 42px;
+  animation: ball-fall 2s ease-out forwards;
 }
 
-/* ESCENA */
+@keyframes ball-fall {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  70% {
+    transform: translateY(340px) scale(0.9);
+  }
+  100% {
+    transform: translateY(320px) scale(0.8);
+  }
+}
+
+/* ================= ESCENA ================= */
 #scene {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: black;
-}
-
-/* ARBOL */
-#tree {
-  position: absolute;
-  bottom: 0;
   width: 100%;
   height: 100%;
   display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================= ÁRBOL ================= */
+#tree {
+  position: relative;
+  width: 200px;
+  height: 260px;
+  opacity: 0;
+  transition: opacity 1.5s ease;
 }
 
 #tree.show {
-  display: block;
+  opacity: 1;
 }
 
-/* TEXTO */
-#content {
+/* Corazones del árbol */
+.tree-heart {
   position: absolute;
-  bottom: 40px;
+  font-size: 18px;
+  opacity: 0;
+  animation: grow 0.6s ease forwards;
+}
+
+@keyframes grow {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ================= CONTENIDO ================= */
+#content {
+  margin-top: 20px;
   text-align: center;
-  width: 90%;
-  max-width: 500px;
+  max-width: 360px;
 }
 
 #counter {
-  margin-bottom: 10px;
-  font-size: 14px;
+  font-size: 18px;
+  margin-bottom: 14px;
+  color: #a1004d;
 }
 
 #text p {
-  opacity: 0;
-  animation: fadeIn 1s forwards;
+  margin-bottom: 12px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #6a0033;
 }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
+/* ================= RESPONSIVE ================= */
+@media (max-width: 480px) {
+  #heart {
+    font-size: 54px;
+  }
+
+  #tree {
+    width: 180px;
+    height: 230px;
+  }
+
+  #content {
+    padding: 0 20px;
+  }
 }
