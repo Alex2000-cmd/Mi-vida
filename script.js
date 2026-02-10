@@ -27,11 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => intro.style.display = "none", 600);
 
     setTimeout(() => {
-      ball.style.opacity = "0";
-
+      ball.remove();
       scene.style.display = "flex";
       tree.classList.add("show");
-
       startCounter();
       typeText();
     }, 1800);
@@ -56,16 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function typeText() {
     let i = 0;
-
     function next() {
       if (i >= paragraphs.length) return;
-
       const p = document.createElement("p");
       text.appendChild(p);
-
       let char = 0;
       const content = paragraphs[i];
-
       const interval = setInterval(() => {
         p.innerHTML = content.slice(0, char++);
         if (char > content.length) {
@@ -75,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }, 40);
     }
-
     next();
   }
 
