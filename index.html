@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Si ves esto se actualizo</title>
-
+  <title>Para el amor de mi vida</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+  <!-- CONTENEDOR DE PELOTA -->
   <div id="ball-container"></div>
-  
+
   <!-- INTRO -->
   <div id="intro">
     <div id="heart">❤️</div>
@@ -18,9 +18,18 @@
     <span>(Toca el corazón)</span>
   </div>
 
-  <!-- ESCENA PRINCIPAL -->
-  <div id="scene" style="display:none;">
-    <div id="tree"></div>
+  <!-- ESCENA -->
+  <div id="scene">
+    <div id="tree">
+      <div class="trunk"></div>
+      <div class="branch left"></div>
+      <div class="branch right"></div>
+
+      <div class="leaf" style="top:20px; left:40px;">❤️</div>
+      <div class="leaf" style="top:10px; right:40px;">❤️</div>
+      <div class="leaf" style="top:50px; left:70px;">❤️</div>
+      <div class="leaf" style="top:40px; right:70px;">❤️</div>
+    </div>
 
     <div id="content">
       <div id="counter"></div>
@@ -44,8 +53,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
