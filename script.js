@@ -23,7 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
     music.currentTime = 0;
     music.play().catch(() => {});
 
-    // ❤️ Crear pelota
+    // ❤️ Convertir corazón en pelota
+    heart.style.visibility = "hidden";
+    
     const ball = document.createElement("div");
     ball.innerHTML = "❤️";
     ball.className = "ball";
@@ -110,3 +112,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
