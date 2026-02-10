@@ -87,3 +87,62 @@ function startFloatingHearts() {
     setTimeout(() => h.remove(), 6000);
   }, 400);
 }
+/* INTRO */
+#intro {
+  text-align: center;
+  transition: opacity 1s;
+}
+
+#intro.fade-out {
+  opacity: 0;
+}
+
+/* CORAZÓN */
+#heart {
+  font-size: 90px;
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+
+#heart.ball {
+  font-size: 40px;
+  border-radius: 50%;
+}
+
+#heart.drop {
+  animation: drop 1.5s ease-in forwards;
+}
+
+@keyframes drop {
+  0% { transform: translateY(0); }
+  70% { transform: translateY(300px); }
+  85% { transform: translateY(250px); }
+  100% { transform: translateY(300px); }
+}
+
+/* ESCENA */
+#scene {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ÁRBOL */
+#tree {
+  width: 0;
+  height: 0;
+  background: pink;
+  border-radius: 10px;
+  transition: all 3s ease;
+}
+
+#tree.grow {
+  width: 120px;
+  height: 220px;
+}
+
+/* TEXTO */
+#text p {
+  opacity: 1;
+  margin: 8px 0;
+}
