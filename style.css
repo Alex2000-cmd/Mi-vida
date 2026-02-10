@@ -1,4 +1,4 @@
-/* ================= RESET ================= */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +7,6 @@
 }
 
 body {
-  width: 100vw;
   height: 100vh;
   background: #fff0f5;
   overflow: hidden;
@@ -16,11 +15,10 @@ body {
   justify-content: center;
 }
 
-/* ================= INTRO ================= */
+/* ---------- INTRO ---------- */
 #intro {
   position: absolute;
   text-align: center;
-  z-index: 5;
   transition: opacity 0.6s ease;
 }
 
@@ -49,34 +47,33 @@ body {
   100% { transform: scale(1); }
 }
 
-/* ================= PELOTA ================= */
+/* ---------- PELOTA ---------- */
 #ball-container {
   position: fixed;
-  top: 0;
+  top: 80px;
   left: 50%;
   transform: translateX(-50%);
   pointer-events: none;
-  z-index: 6;
+  z-index: 20;
 }
 
 .ball {
-  font-size: 42px;
-  animation: ball-fall 2s ease-out forwards;
+  width: 32px;
+  height: 32px;
+  background: #ff4d88;
+  border-radius: 50%;
+  animation: fall 1.8s ease-out forwards;
 }
 
-@keyframes ball-fall {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-  70% {
-    transform: translateY(340px) scale(0.9);
-  }
-  100% {
-    transform: translateY(320px) scale(0.8);
-  }
+/* Rebote */
+@keyframes fall {
+  0% { transform: translateY(0); }
+  70% { transform: translateY(340px); }
+  85% { transform: translateY(300px); }
+  100% { transform: translateY(340px); }
 }
 
-/* ================= ESCENA ================= */
+/* ---------- ESCENA ---------- */
 #scene {
   width: 100%;
   height: 100%;
@@ -86,51 +83,67 @@ body {
   justify-content: center;
 }
 
-/* ================= ÁRBOL ================= */
+/* ---------- ÁRBOL ---------- */
 #tree {
   position: relative;
-  width: 200px;
-  height: 260px;
+  width: 120px;
+  height: 200px;
+  margin-bottom: 20px;
   opacity: 0;
-  transition: opacity 1.5s ease;
+  transition: opacity 2s ease;
+}
+
+/* Tronco */
+#tree::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 12px;
+  height: 80px;
+  background: #8b5a2b;
+  transform: translateX(-50%);
+  border-radius: 6px;
+}
+
+/* Copa */
+#tree::after {
+  content: "";
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  width: 140px;
+  height: 120px;
+  background: radial-gradient(circle, #ff5fa2 20%, transparent 21%);
+  background-size: 28px 28px;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: growHearts 3s forwards;
 }
 
 #tree.show {
   opacity: 1;
 }
 
-/* Corazones del árbol */
-.tree-heart {
-  position: absolute;
-  font-size: 18px;
-  opacity: 0;
-  animation: grow 0.6s ease forwards;
+@keyframes growHearts {
+  from { opacity: 0; transform: translateX(-50%) scale(0.5); }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
 }
 
-@keyframes grow {
-  from {
-    transform: scale(0);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* ================= CONTENIDO ================= */
+/* ---------- CONTENIDO ---------- */
 #content {
-  margin-top: 20px;
   text-align: center;
-  max-width: 360px;
+  max-width: 340px;
 }
 
+/* CONTADOR */
 #counter {
   font-size: 18px;
   margin-bottom: 14px;
   color: #a1004d;
 }
 
+/* TEXTO */
 #text p {
   margin-bottom: 12px;
   font-size: 16px;
@@ -138,18 +151,8 @@ body {
   color: #6a0033;
 }
 
-/* ================= RESPONSIVE ================= */
+/* ---------- RESPONSIVE ---------- */
 @media (max-width: 480px) {
-  #heart {
-    font-size: 54px;
-  }
-
-  #tree {
-    width: 180px;
-    height: 230px;
-  }
-
-  #content {
-    padding: 0 20px;
-  }
+  #heart { font-size: 54px; }
+  #content { padding: 0 20px; }
 }
