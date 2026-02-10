@@ -198,3 +198,41 @@ function startFloatingHearts() {
   font-size: 16px;
   line-height: 1.5;
 }
+#ball-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.ball {
+  font-size: 40px;
+}
+
+.ball.fall {
+  animation: fall 1.8s ease-out forwards;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0); }
+  70% { transform: translateY(320px); }
+  85% { transform: translateY(280px); }
+  100% { transform: translateY(320px); }
+}
+
+/* Árbol placeholder LIMPIO */
+#tree {
+  width: 120px;
+  height: 180px;
+  border: 3px solid pink;
+  border-radius: 12px;
+  margin: 20px 0;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+#tree.show {
+  opacity: 1;
+}
