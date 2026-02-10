@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Para el amor de mi vida</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div id="intro">
-  <div id="heart"></div>
-  <p id="introText">Para el amor de mi vida</p>
-</div>
-
-<div id="scene" class="hidden">
-  <canvas id="canvas"></canvas>
-
-  <div id="content" class="hidden">
-    <div id="counter"></div>
-    <p id="message">
-      Para el amor de mi vida:<br><br>
-      Si pudiera elegir un lugar seguro,<br>
-      sería a tu lado ❤️
-    </p>
+  <!-- INTRO -->
+  <div id="intro">
+    <div id="heart">❤️</div>
+    <p>Para el amor de mi vida</p>
+    <span>(Toca el corazón)</span>
   </div>
-</div>
 
-<audio id="music" src="music.mp3"></audio>
+  <!-- ESCENA PRINCIPAL -->
+  <div id="scene" style="display:none;">
+    <div id="tree"></div>
 
-<script src="script.js"></script>
+    <div id="content">
+      <div id="counter"></div>
+
+      <div id="text">
+        <p>Para el amor de mi vida:</p>
+        <p>
+          Si pudiera elegir un lugar seguro,<br>
+          sería a tu lado.<br><br>
+          Cuanto más tiempo estoy contigo,<br>
+          más te amo.
+        </p>
+        <p>— I Love You 💖</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUDIO -->
+  <audio id="music" src="music.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
 </body>
 </html>
