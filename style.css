@@ -1,9 +1,8 @@
-/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 body {
@@ -11,11 +10,11 @@ body {
   background: #fff0f5;
   overflow: hidden;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
-/* ---------- INTRO ---------- */
+/* INTRO */
 #intro {
   position: absolute;
   text-align: center;
@@ -28,26 +27,13 @@ body {
   animation: pulse 1.4s infinite;
 }
 
-#intro p {
-  font-size: 22px;
-  margin-top: 10px;
-  color: #b30059;
-}
-
-#intro span {
-  display: block;
-  margin-top: 6px;
-  color: #777;
-  font-size: 14px;
-}
-
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.15); }
   100% { transform: scale(1); }
 }
 
-/* ---------- PELOTA ---------- */
+/* PELOTA */
 #ball-container {
   position: fixed;
   top: 80px;
@@ -65,7 +51,6 @@ body {
   animation: fall 1.8s ease-out forwards;
 }
 
-/* Rebote */
 @keyframes fall {
   0% { transform: translateY(0); }
   70% { transform: translateY(340px); }
@@ -73,86 +58,90 @@ body {
   100% { transform: translateY(340px); }
 }
 
-/* ---------- ESCENA ---------- */
+/* ESCENA */
 #scene {
-  width: 100%;
-  height: 100%;
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-/* ---------- ÁRBOL ---------- */
+/* ÁRBOL */
 #tree {
   position: relative;
-  width: 120px;
-  height: 200px;
+  width: 180px;
+  height: 240px;
   margin-bottom: 20px;
   opacity: 0;
   transition: opacity 2s ease;
-}
-
-/* Tronco */
-#tree::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 12px;
-  height: 80px;
-  background: #8b5a2b;
-  transform: translateX(-50%);
-  border-radius: 6px;
-}
-
-/* Copa */
-#tree::after {
-  content: "";
-  position: absolute;
-  bottom: 60px;
-  left: 50%;
-  width: 140px;
-  height: 120px;
-  background: radial-gradient(circle, #ff5fa2 20%, transparent 21%);
-  background-size: 28px 28px;
-  transform: translateX(-50%);
-  opacity: 0;
-  animation: growHearts 3s forwards;
 }
 
 #tree.show {
   opacity: 1;
 }
 
-@keyframes growHearts {
-  from { opacity: 0; transform: translateX(-50%) scale(0.5); }
-  to { opacity: 1; transform: translateX(-50%) scale(1); }
+.trunk {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 14px;
+  height: 90px;
+  background: #8b5a2b;
+  transform: translateX(-50%);
+  border-radius: 6px;
 }
 
-/* ---------- CONTENIDO ---------- */
+.branch {
+  position: absolute;
+  width: 80px;
+  height: 4px;
+  background: #8b5a2b;
+  top: 90px;
+}
+
+.branch.left {
+  left: 10px;
+  transform: rotate(-25deg);
+}
+
+.branch.right {
+  right: 10px;
+  transform: rotate(25deg);
+}
+
+.leaf {
+  position: absolute;
+  font-size: 18px;
+  opacity: 0;
+  animation: leafIn 1.5s forwards;
+}
+
+@keyframes leafIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* CONTENIDO */
 #content {
   text-align: center;
   max-width: 340px;
 }
 
-/* CONTADOR */
 #counter {
   font-size: 18px;
   margin-bottom: 14px;
   color: #a1004d;
 }
 
-/* TEXTO */
 #text p {
   margin-bottom: 12px;
   font-size: 16px;
   line-height: 1.5;
   color: #6a0033;
-}
-
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 480px) {
-  #heart { font-size: 54px; }
-  #content { padding: 0 20px; }
 }
