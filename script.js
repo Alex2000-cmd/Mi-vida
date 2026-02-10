@@ -1,85 +1,51 @@
-const intro = document.getElementById("intro");
-const heart = document.getElementById("heart");
-const scene = document.getElementById("scene");
-const tree = document.getElementById("tree");
-const text = document.getElementById("text");
-const counter = document.getElementById("counter");
-const music = document.getElementById("music");
+document.addEventListener("DOMContentLoaded", () => {
 
-let started = false;
+  const heart = document.getElementById("heart");
+  const intro = document.getElementById("intro");
+  const scene = document.getElementById("scene");
+  const music = document.getElementById("music");
+  const counter = document.getElementById("counter");
 
-/* ======================
-   INICIAR EXPERIENCIA
-====================== */
-function startExperience() {
-  if (started) return;
-  started = true;
-
-  intro.classList.add("hidden");
-  scene.classList.remove("hidden");
-
-  // Música desde el segundo 30
-  music.currentTime = 30;
-  music.play().catch(() => {});
-
-  growTree();
-  startCounter();
-  startFloatingHearts();
-}
-
-// Click en corazón o primer toque
-heart.addEventListener("click", startExperience);
-document.body.addEventListener("click", startExperience, { once: true });
-
-/* ======================
-   ÁRBOL DE CORAZONES
-====================== */
-function growTree() {
-  tree.classList.add("grow");
-
-  // Mostrar texto después
-  setTimeout(() => {
-    text.classList.add("show");
-  }, 6000);
-}
-
-/* ======================
-   CONTADOR DE AMOR
-====================== */
-function startCounter() {
+  // FECHA DE INICIO DEL AMOR 💖
   const startDate = new Date("2018-08-06T00:00:00");
 
-  setInterval(() => {
+  function updateCounter() {
     const now = new Date();
-    let diff = now - startDate;
+    let diff = Math.floor((now - startDate) / 1000);
 
-    const seconds = Math.floor(diff / 1000) % 60;
-    const minutes = Math.floor(diff / (1000 * 60)) % 60;
-    const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const days = Math.floor(diff / 86400);
+    diff %= 86400;
+    const hours = Math.floor(diff / 3600);
+    diff %= 3600;
+    const minutes = Math.floor(diff / 60);
+    const seconds = diff % 60;
 
     counter.innerHTML = `
-      ${days} días 
-      ${hours} horas 
-      ${minutes} minutos 
-      ${seconds} segundos
+      ${days} días ${hours} horas<br>
+      ${minutes} minutos ${seconds} segundos
     `;
-  }, 1000);
-}
+  }
 
-/* ======================
-   CORAZONES FLOTANDO
-====================== */
-function startFloatingHearts() {
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.classList.add("floating-heart");
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = 3 + Math.random() * 3 + "s";
-    document.body.appendChild(heart);
+  // 🔥 EVENTO REAL DE USUARIO (OBLIGATORIO PARA AUDIO)
+  heart.addEventListener("click", async () => {
 
-    setTimeout(() => {
-      heart.remove();
-    }, 6000);
-  }, 400);
-}
+    // Oculta intro
+    intro.style.display = "none";
+    scene.style.display = "flex";
+
+    // Inicia contador
+    updateCounter();
+    setInterval(updateCounter, 1000);
+
+    // Reproduce música
+    try {
+      music.currentTime = 30; // empieza en segundo 30
+      await music.play();
+      console.log("🎵 Música reproduciéndose");
+    } catch (e) {
+      alert("Toca nuevamente la pantalla para iniciar la música 💖");
+      console.error("Error audio:", e);
+    }
+  });
+
+});
