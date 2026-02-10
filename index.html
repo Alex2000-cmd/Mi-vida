@@ -8,40 +8,42 @@
 </head>
 <body>
 
-<!-- INTRO -->
 <div id="intro">
   <div id="heart">❤️</div>
   <p>Para el amor de mi vida</p>
   <span>(Toca el corazón)</span>
 </div>
 
-<!-- ESCENA -->
 <div id="scene">
-  <!-- ÁRBOL SVG -->
   <svg id="tree" viewBox="0 0 400 600">
-    <!-- TRONCO Y RAMAS -->
-    <path class="branch" d="M200 600 C200 500 200 400 200 300" />
-    <path class="branch" d="M200 450 C140 380 90 320 70 260" />
-    <path class="branch" d="M200 420 C260 360 310 300 330 250" />
-    <path class="branch" d="M200 380 C150 320 130 280 120 240" />
-    <path class="branch" d="M200 360 C250 300 270 260 280 230" />
 
-    <!-- CORAZONES (COPA) -->
+    <!-- TRONCO -->
+    <path class="branch thick" d="M200 600 C195 520 200 440 200 360" />
+
+    <!-- RAMAS -->
+    <path class="branch medium" d="M200 420 C160 360 120 300 90 250" />
+    <path class="branch medium" d="M200 410 C240 350 280 300 320 250" />
+    <path class="branch thin" d="M200 360 C170 320 150 290 140 260" />
+    <path class="branch thin" d="M200 360 C230 320 250 290 260 260" />
+
+    <!-- COPA DE CORAZONES -->
     <g id="leaves">
-      <text x="70"  y="260">❤️</text>
-      <text x="100" y="230">❤️</text>
-      <text x="140" y="250">❤️</text>
-      <text x="180" y="220">❤️</text>
-      <text x="220" y="230">❤️</text>
-      <text x="260" y="250">❤️</text>
-      <text x="300" y="230">❤️</text>
-      <text x="330" y="250">❤️</text>
-      <text x="160" y="260">❤️</text>
-      <text x="240" y="260">❤️</text>
+      <text x="110" y="240">❤️</text>
+      <text x="140" y="220">❤️</text>
+      <text x="170" y="210">❤️</text>
+      <text x="200" y="205">❤️</text>
+      <text x="230" y="210">❤️</text>
+      <text x="260" y="220">❤️</text>
+      <text x="290" y="240">❤️</text>
+
+      <text x="130" y="260">❤️</text>
+      <text x="160" y="245">❤️</text>
+      <text x="200" y="240">❤️</text>
+      <text x="240" y="245">❤️</text>
+      <text x="270" y="260">❤️</text>
     </g>
   </svg>
 
-  <!-- TEXTO -->
   <div id="content">
     <div id="counter"></div>
     <div id="text"></div>
@@ -49,7 +51,6 @@
 </div>
 
 <audio id="music" src="music.mp3"></audio>
-
 <script src="script.js"></script>
 </body>
 </html>
