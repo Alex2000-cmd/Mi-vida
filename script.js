@@ -1,70 +1,85 @@
-console.log("SCRIPT NUEVO CARGADO");
+document.addEventListener("DOMContentLoaded", () => {
 
-const heart = document.getElementById("heart");
-const intro = document.getElementById("intro");
-const scene = document.getElementById("scene");
-const tree = document.getElementById("tree");
-const music = document.getElementById("music");
-const text = document.querySelectorAll("#text p");
+  const heart = document.getElementById("heart");
+  const intro = document.getElementById("intro");
+  const scene = document.getElementById("scene");
+  const tree = document.getElementById("tree");
+  const text = document.getElementById("text");
+  const counter = document.getElementById("counter");
+  const music = document.getElementById("music");
+  const ballContainer = document.getElementById("ball-container");
 
-heart.addEventListener("click", () => {
-  intro.style.display = "none";
-  scene.style.display = "flex";
+  const startDate = new Date("2018-08-06T00:00:00");
 
-  music.currentTime = 0;
-  music.play();
+  // Guardar texto
+  const paragraphs = [...text.querySelectorAll("p")].map(p => p.innerHTML);
+  text.innerHTML = "";
 
-  createBall();
-});
+  heart.onclick = () => {
 
-function createBall() {
-  const ball = document.createElement("div");
-  ball.className = "ball";
-  document.body.appendChild(ball);
+    // Música desde 0
+    music.currentTime = 0;
+    music.play().catch(() => {});
 
-  let x = window.innerWidth / 2;
-  let y = window.innerHeight / 2;
+    // Crear pelota
+    const ball = document.createElement("div");
+    ball.className = "ball";
+    ball.innerHTML = "❤️";
+    ballContainer.appendChild(ball);
 
-  ball.style.left = x + "px";
-  ball.style.top = y + "px";
+    // Ocultar intro
+    intro.style.opacity = "0";
+    setTimeout(() => intro.style.display = "none", 600);
 
-  let step = 0;
-  const interval = setInterval(() => {
-    y -= 6;
-    x += Math.sin(step / 10) * 4;
-    step++;
+    // Mostrar escena DESPUÉS
+    setTimeout(() => {
+      scene.style.display = "flex";
+      tree.classList.add("show");
+      startCounter();
+      typeText();
+    }, 2200);
+  };
 
-    ball.style.left = x + "px";
-    ball.style.top = y + "px";
+  function startCounter() {
+    setInterval(() => {
+      const now = new Date();
+      let diff = Math.floor((now - startDate) / 1000);
 
-    if (step > 80) {
-      clearInterval(interval);
-      ball.remove();
-      drawTree();
-    }
-  }, 30);
-}
+      const days = Math.floor(diff / 86400);
+      diff %= 86400;
+      const hours = Math.floor(diff / 3600);
+      diff %= 3600;
+      const minutes = Math.floor(diff / 60);
+      const seconds = diff % 60;
 
-function drawTree() {
-  tree.classList.add("show");
-
-  for (let i = 0; i < 150; i++) {
-    const leaf = document.createElement("div");
-    leaf.innerText = "❤️";
-    leaf.style.position = "absolute";
-    leaf.style.left = Math.random() * 100 + "%";
-    leaf.style.bottom = Math.random() * 80 + "%";
-    leaf.style.fontSize = "12px";
-    tree.appendChild(leaf);
+      counter.innerHTML =
+        `${days} días ${hours} horas<br>${minutes} minutos ${seconds} segundos`;
+    }, 1000);
   }
 
-  showText();
-}
+  function typeText() {
+    let i = 0;
 
-function showText() {
-  text.forEach((p, i) => {
-    setTimeout(() => {
-      p.style.opacity = 1;
-    }, i * 1200);
-  });
-}
+    function next() {
+      if (i >= paragraphs.length) return;
+
+      const p = document.createElement("p");
+      text.appendChild(p);
+
+      let char = 0;
+      const content = paragraphs[i];
+
+      const interval = setInterval(() => {
+        p.innerHTML = content.slice(0, char++);
+        if (char > content.length) {
+          clearInterval(interval);
+          i++;
+          setTimeout(next, 500);
+        }
+      }, 40);
+    }
+
+    next();
+  }
+
+});
