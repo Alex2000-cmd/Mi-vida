@@ -40,7 +40,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   pointer-events: none;
-  z-index: 20;
+  z-index: 10;
 }
 
 .ball {
@@ -53,9 +53,9 @@ body {
 
 @keyframes fall {
   0% { transform: translateY(0); }
-  70% { transform: translateY(340px); }
-  85% { transform: translateY(300px); }
-  100% { transform: translateY(340px); }
+  70% { transform: translateY(320px); }
+  85% { transform: translateY(280px); }
+  100% { transform: translateY(320px); }
 }
 
 /* ESCENA */
@@ -63,14 +63,11 @@ body {
   display: none;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
-/* ÁRBOL */
+/* ÁRBOL SVG */
 #tree {
-  position: relative;
-  width: 180px;
-  height: 240px;
+  width: 260px;
   margin-bottom: 20px;
   opacity: 0;
   transition: opacity 2s ease;
@@ -80,54 +77,42 @@ body {
   opacity: 1;
 }
 
-.trunk {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 14px;
-  height: 90px;
-  background: #8b5a2b;
-  transform: translateX(-50%);
-  border-radius: 6px;
+/* Animación ramas */
+.trunk, .branch {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: draw 2s forwards;
 }
 
 .branch {
-  position: absolute;
-  width: 80px;
-  height: 4px;
-  background: #8b5a2b;
-  top: 90px;
+  animation-delay: 1s;
 }
 
-.branch.left {
-  left: 10px;
-  transform: rotate(-25deg);
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
 }
 
-.branch.right {
-  right: 10px;
-  transform: rotate(25deg);
-}
-
+/* Corazones */
 .leaf {
-  position: absolute;
-  font-size: 18px;
+  font-size: 24px;
   opacity: 0;
-  animation: leafIn 1.5s forwards;
+  animation: leafIn 1s forwards;
 }
+
+.leaf:nth-child(1) { animation-delay: 2.2s; }
+.leaf:nth-child(2) { animation-delay: 2.4s; }
+.leaf:nth-child(3) { animation-delay: 2.6s; }
+.leaf:nth-child(4) { animation-delay: 2.8s; }
+.leaf:nth-child(5) { animation-delay: 3s; }
+.leaf:nth-child(6) { animation-delay: 3.2s; }
+.leaf:nth-child(7) { animation-delay: 3.4s; }
 
 @keyframes leafIn {
-  from {
-    transform: scale(0);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
-/* CONTENIDO */
+/* TEXTO */
 #content {
   text-align: center;
   max-width: 340px;
