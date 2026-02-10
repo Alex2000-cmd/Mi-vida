@@ -33,11 +33,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Mostrar escena DESPUÉS
     setTimeout(() => {
-      scene.style.display = "flex";
-      tree.classList.add("show");
-      startCounter();
-      typeText();
-    }, 2200);
+  // Ocultar pelota
+  ball.style.opacity = "0";
+
+  // Mostrar escena y árbol
+  scene.style.display = "flex";
+  tree.classList.add("show");
+
+  startCounter();
+  typeText();
+}, 1800);
   };
 
   function startCounter() {
@@ -83,3 +88,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
